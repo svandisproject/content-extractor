@@ -10,7 +10,7 @@ from newspaper.configuration import Configuration
 from newspaper.cleaners import DocumentCleaner
 
 
-API_URL = 'https://svandis-api.herokuapp.com'
+API_URL = 'https://svandis-api-prod.herokuapp.com'
 
 
 def get_data_from_html(html):
