@@ -47,7 +47,7 @@ def upload_data_to_api(token, payload):
 
     r = requests.post(url, headers=headers, data=json.dumps({'post':payload}))
     
-    if r.status_code == 200
+    if r.status_code == 200:
         print(r)
     
     if r.status_code != 200 or r.status_code != 201:
