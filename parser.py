@@ -46,6 +46,10 @@ def upload_data_to_api(token, payload):
     print({'post':payload})
 
     r = requests.post(url, headers=headers, data=json.dumps({'post':payload}))
+    
+    if r.status_code == 200
+        print(r)
+    
     if r.status_code != 200 or r.status_code != 201:
         # logger.error('Error uploading content to API [%s]', r.text)
         print(r.text)
