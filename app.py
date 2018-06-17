@@ -18,7 +18,6 @@ def index():
     page_html = request_payload['pageHtml']
     
     print('URL received for extraction:[%s]' % article_url)
-    print('Html received fro extraction:[%s]' % page_html)
 
     article_data = parser.get_data_from_html(page_html)
     # logger.info('Content from %s has been extracted', article_url)    
