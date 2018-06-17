@@ -1,7 +1,7 @@
-from flask import Flask, request, json
-import requests
+from flask import Flask, request
 
 import parser
+
 # from logger import logger
 
 
@@ -15,15 +15,11 @@ def index():
     request_payload = request.get_json()
     api_token = request_payload['token']
     article_url = request_payload['url']
+    page_html = request_payload['pageHtml']
     
     print('URL received for extraction:[%s]' % article_url)
 
-    r = requests.get(article_url)
-
-    if r.status_code != 200: 
-        return 'Error fetching content from ' + article_url, 500
-
-    article_data = parser.get_data_from_html(r.text)
+    article_data = parser.get_data_from_html(page_html)
     # logger.info('Content from %s has been extracted', article_url)    
     
     article_data['url'] = article_url
