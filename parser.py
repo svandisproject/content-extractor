@@ -2,6 +2,7 @@ import sys
 import requests
 import time
 import json
+import datetime
 
 from newspaper import Article
 from newspaper.outputformatters import OutputFormatter
@@ -26,7 +27,11 @@ def get_data_from_html(html):
     cleaner = DocumentCleaner(config)
 
     result['title'] = extractor.get_title(parsed_html)
-    result['published_at'] = extractor.get_publishing_date('', parsed_html).isoformat()
+    result['published_at'] = extractor.get_publishing_date('', parsed_html)
+    if result['published_at'] is None:
+        result['published_at'] = datetime.datetime.now().isoformat()
+    else:
+        result['published_at'] = result['published_at'].isoformat()
 
     cleaned_html = cleaner.clean(parsed_html)
     top_node = extractor.calculate_best_node(cleaned_html)
