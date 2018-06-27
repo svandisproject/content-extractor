@@ -1,10 +1,12 @@
 import requests
+import json
+
 
 API_URL = 'https://svandis-api-prod.herokuapp.com'
 
 def upload_post_data(api_token, post_data):
     url = API_URL + '/api/post'
-    headers = SvandisApi._get_request_headers()
+    headers = _get_request_headers(api_token)
 
     r = requests.post(url, headers=headers, data=json.dumps({'post': post_data}))
     r.raise_for_status()
@@ -13,7 +15,7 @@ def upload_post_data(api_token, post_data):
 
 def invalidate_url(api_token, url):
     url = API_URL + '/api/post/invalidate-url'
-    headers = SvandisApi._get_request_headers()
+    headers = _get_request_headers(api_token)
 
     r = requests.post(url, headers=headers, data=json.dumps({'url': url}))
     r.raise_for_status()
