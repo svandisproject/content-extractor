@@ -12,8 +12,17 @@ def extract():
     
     request_payload = request.get_json()
     api_token = request_payload['token']
+    if not api_token:
+        Logger.error("Invalid [token] parameter")
+        return 'Invalid [token] parameter', 400
     article_url = request_payload['url']
+    if not article_url:
+        Logger.error("Invalid [article_url] parameter")
+        return 'Invalid [article_url] parameter', 400
     page_html = request_payload['pageHtml']
+    if not page_html:
+        Logger.error("Invalid [page_html] parameter")
+        return 'Invalid [page_html] parameter', 400
     
     Logger.info('URL received for extraction:[%s]' % article_url)
 
