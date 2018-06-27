@@ -1,0 +1,8 @@
+INFO: * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+INFO: * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+INFO:127.0.0.1 - - [27/Jun/2018 17:03:14] "GET / HTTP/1.1" 404 -
+INFO:127.0.0.1 - - [27/Jun/2018 17:03:15] "GET / HTTP/1.1" 404 -
+INFO:127.0.0.1 - - [27/Jun/2018 17:03:18] "GET /extract HTTP/1.1" 400 -
+INFO: * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+INFO:127.0.0.1 - - [27/Jun/2018 17:03:50] "GET /extract HTTP/1.1" 405 -
+INFO:127.0.0.1 - - [27/Jun/2018 17:03:51] "GET /extract HTTP/1.1" 405 -
