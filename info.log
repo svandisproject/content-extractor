@@ -6,3 +6,9 @@ INFO:127.0.0.1 - - [27/Jun/2018 17:03:18] "GET /extract HTTP/1.1" 400 -
 INFO: * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
 INFO:127.0.0.1 - - [27/Jun/2018 17:03:50] "GET /extract HTTP/1.1" 405 -
 INFO:127.0.0.1 - - [27/Jun/2018 17:03:51] "GET /extract HTTP/1.1" 405 -
+INFO: * Running on http://0.0.0.0:5000/ (Press CTRL+C to quit)
+INFO:URL received for extraction:[https://adamcod.es/2017/08/19/docker-patterns-socket-mount.html]
+INFO:Content from https://adamcod.es/2017/08/19/docker-patterns-socket-mount.html has been extracted
+ERROR:Cannot upload data to API (token:[HENvfaQi6jm9rKy3VnZXidurKhLT8IreMbYE8uSsCQHVLzNxs26s9PLr0qfUl9uN8NlLQGVzZ93toGcNlAhVdBKMV0FDifWiYO1AOBQr8JLjC1KzSTbIzRjyNUUO87Jf])
+ERROR:400 Client Error: Bad Request for url: https://svandis-api-prod.herokuapp.com/api/post
+INFO:127.0.0.1 - - [28/Jun/2018 16:36:20] "POST /extract HTTP/1.1" 400 -
