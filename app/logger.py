@@ -2,7 +2,8 @@ import logging
 
 logging.basicConfig(filename='info.log', format='%(levelname)s:%(message)s', level=logging.INFO)
 
-class Logger():
+
+class Logger:
     @staticmethod
     def info(msg):
         print("INFO: %s" % msg)
