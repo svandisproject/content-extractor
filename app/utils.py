@@ -4,20 +4,20 @@ import json
 
 API_URL = 'https://svandis-api-prod.herokuapp.com'
 
-def upload_post_data(api_token, post_data):
+def upload_article_data(client_token, article_data):
     url = API_URL + '/api/post'
-    headers = _get_request_headers(api_token)
+    headers = _get_request_headers(client_token)
 
-    r = requests.post(url, headers=headers, data=json.dumps({'post': post_data}))
+    r = requests.post(url, headers=headers, data=json.dumps({'post': article_data}))
     r.raise_for_status()
     return r.status_code
 
 
-def invalidate_url(api_token, url):
+def invalidate_url(client_token, article_url):
     url = API_URL + '/api/post/invalidate-url'
-    headers = _get_request_headers(api_token)
+    headers = _get_request_headers(client_token)
 
-    r = requests.post(url, headers=headers, data=json.dumps({'url': url}))
+    r = requests.post(url, headers=headers, data=json.dumps({'url': article_url}))
     r.raise_for_status()
     return r.status_code
 

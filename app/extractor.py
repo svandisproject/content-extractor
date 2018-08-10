@@ -7,8 +7,10 @@ from newspaper.extractors import ContentExtractor
 from newspaper.configuration import Configuration
 from newspaper.cleaners import DocumentCleaner
 
+from logger import Logger
 
-def get_data_from_html(html):
+
+def get_data_from_html(article_url, html):
     result = {}
     parsed_html = Parser.fromstring(html)
 
@@ -18,16 +20,15 @@ def get_data_from_html(html):
     cleaner = DocumentCleaner(config)
 
     result['title'] = extractor.get_title(parsed_html)
-    
     publishing_date = extractor.get_publishing_date('', parsed_html)
     if publishing_date is None:
         publishing_date = datetime.datetime.now()
 
     result['published_at'] = publishing_date.isoformat()
-
     cleaned_html = cleaner.clean(parsed_html)
     top_node = extractor.calculate_best_node(cleaned_html)
     top_node = extractor.post_cleanup(top_node)
     result['content'], _ = formatter.get_formatted(top_node)
+    result['meta_img'] = extractor.get_meta_img_url(article_url, parsed_html)
 
     return result

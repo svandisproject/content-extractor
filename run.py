@@ -1,9 +1,9 @@
-from flask import Flask
+from app import application
+from tasks import add as add_task
 
-from extractor import extractor_blueprint
+# from extractor import extractor_blueprint
 
-application = Flask(__name__)
-application.register_blueprint(extractor_blueprint)
+# application.register_blueprint(extractor_blueprint)
 
 # @application.route('/extract', methods=['POST'])
 # def index():
@@ -36,4 +36,6 @@ application.register_blueprint(extractor_blueprint)
 
     
 if __name__ == '__main__':
-    application.run(host='0.0.0.0')
+    # application.run(host='0.0.0.0')
+    result = add_task.delay(3,5)
+    print(result.wait())
