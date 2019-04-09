@@ -1,5 +1,6 @@
 altgraph==0.15
 appnope==0.1.0
+attrs==19.1.0
 backcall==0.1.0
 beautifulsoup4==4.6.0
 certifi==2018.4.16
@@ -10,6 +11,8 @@ decorator==4.3.0
 feedfinder2==0.0.4
 feedparser==5.2.1
 Flask==1.0.2
+Flask-Inputs==0.3.0
+Flask-json-schema==0.0.5
 future==0.16.0
 gunicorn==19.8.1
 idna==2.6
@@ -19,6 +22,7 @@ itsdangerous==0.24
 jedi==0.12.0
 jieba3k==0.35.1
 Jinja2==2.10
+jsonschema==3.0.1
 lxml==4.2.1
 macholib==1.9
 MarkupSafe==1.0
@@ -33,6 +37,7 @@ prompt-toolkit==1.0.15
 ptyprocess==0.5.2
 Pygments==2.2.0
 PyInstaller==3.3.1
+pyrsistent==0.14.11
 python-dateutil==2.7.3
 PyYAML==3.12
 requests==2.18.4
@@ -44,3 +49,4 @@ traitlets==4.3.2
 urllib3==1.22
 wcwidth==0.1.7
 Werkzeug==0.14.1
+WTForms==2.2.1

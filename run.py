@@ -1,38 +1,55 @@
-from flask import Flask
+import werkzeug
 
-from extractor import extractor_blueprint
+from flask import Flask, jsonify, request
+from flask_inputs import Inputs
+from flask_inputs.validators import JsonSchema
+
+import extractor
+from logger import Logger
+
 
 application = Flask(__name__)
-application.register_blueprint(extractor_blueprint)
 
-# @application.route('/extract', methods=['POST'])
-# def index():
-#     if not request.is_json:
-#         return 'Invalid payload format. Should be application/json', 400
+extract_schema = {
+    'type': 'object',
+    'required': ['url', 'html'],
+    'properties': {
+        'url': { 'type': 'string', 'minLength': 10 },
+        'html': { 'type': 'string', 'minLength': 100 }
+    }
+}
+
+class JsonInputs(Inputs):
+    json = [JsonSchema(schema=extract_schema)]
+
+
+@application.errorhandler(werkzeug.exceptions.BadRequest)
+def handle_bad_request(e):
+    return jsonify(success=False, reason=e.get_description(), errors=[]), 400
+
+
+@application.route('/extract', methods=['POST'])
+def index():
+    inputs = JsonInputs(request)
+
+    if not inputs.validate():
+        return jsonify(success=False, reason='Incorrect json payload', errors=inputs.errors), 400
+
+    payload = request.get_json()
+
+    url, html = payload['url'], payload['html']
     
-#     request_payload = request.get_json()
-#     api_token = request_payload['token']
-#     article_url = request_payload['url']
-#     page_html = request_payload['pageHtml']
-    
-#     print('URL received for extraction:[%s]' % article_url)
+    Logger.info(f'URL received for extraction:[{url}]')
 
-#     try:
-#         article_data = parser.get_data_from_html(page_html)
-#         Logger.info('Content from %s has been extracted' % article_url)
-#     except Exception:
+    try:
+        article_data = extractor.get_data_from_html(html)
+        Logger.info(f'Content of {url} has been extracted')
+    except Exception as e:
+        Logger.error(f'Cannot parse HTML for [{url}]')
+        Logger.error(e)
+        return jsonify(success=False, reason='Error during content extraction of [{}]'.format(url), error=str(e)), 400
 
-#         return 'Error during HTML parsing', 400
-
-#     article_data['url'] = article_url
-#     article_data['source'] = article_url
-    
-#     try:
-#         parser.upload_data_to_api(api_token, article_data)
-#     except Exception:
-#         return 'Errors during API upload', 400
-
-#     return 'ok', 200
+    return jsonify({ 'url': url, 'article': article_data })
 
     
 if __name__ == '__main__':
