@@ -1,4 +1,6 @@
+import os
 import werkzeug
+import requests
 
 from flask import Flask, jsonify, request
 from flask_inputs import Inputs
@@ -12,10 +14,9 @@ application = Flask(__name__)
 
 extract_schema = {
     'type': 'object',
-    'required': ['url', 'html'],
+    'required': ['url'],
     'properties': {
-        'url': { 'type': 'string', 'minLength': 10 },
-        'html': { 'type': 'string', 'minLength': 100 }
+        'url': { 'type': 'string', 'minLength': 10 }
     }
 }
 
@@ -36,12 +37,18 @@ def index():
         return jsonify(success=False, reason='Incorrect json payload', errors=inputs.errors), 400
 
     payload = request.get_json()
-
-    url, html = payload['url'], payload['html']
+    url = payload['url']
     
     Logger.info(f'URL received for extraction:[{url}]')
 
+    response = requests.get(url)
+
+    if response.status_code is not 200:
+        Logger.error(f'Cannot request page {url}')
+        return jsonify(success=False, reason='Error during page request [{}]'.format(url)), 400
+
     try:
+        html = response.text
         article_data = extractor.get_data_from_html(html)
         Logger.info(f'Content of {url} has been extracted')
     except Exception as e:
@@ -53,4 +60,4 @@ def index():
 
     
 if __name__ == '__main__':
-    application.run(host='0.0.0.0')
+    application.run(host='0.0.0.0', port=os.getenv('PORT') or 80)
