@@ -38,10 +38,13 @@ def index():
 
     payload = request.get_json()
     url = payload['url']
+    headers = {
+        'User-Agent': 'Mozilla/5.0 (Macintosh; Intel Mac OS X 10_10_1) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/39.0.2171.95 Safari/537.36'
+    }
     
     Logger.info(f'URL received for extraction:[{url}]')
 
-    response = requests.get(url)
+    response = requests.get(url, headers=headers)
 
     if response.status_code is not 200:
         Logger.error(f'Cannot request page {url}')
